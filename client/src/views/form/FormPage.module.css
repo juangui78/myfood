@@ -1,0 +1,69 @@
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    align-items: center;
+    height: 100vh;
+    padding: 40px;
+}
+
+.baseForm {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(228, 228, 121);
+    
+}
+
+.formStyle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 40px;
+}
+
+.textSlogan {
+    font-weight: 500;
+    
+}
+
+.multipleDietsText {
+    font-size: 0.7em;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.containerForm {
+    min-width: 300px;
+    max-height: 557px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.selectedDietsTitle{
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.dietSelected{
+    max-width: 280px;
+}
+
+.selectStyle{
+    min-height: 100px;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
+.warningText {
+    font-size: 0.8em;
+    color: red;
+    font-style: italic;
+}

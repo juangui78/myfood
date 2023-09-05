@@ -7,11 +7,16 @@ const getAllRecipesAndFilter = async(req, res) => {
     try {
         const {name} = req.query;
         
-        const allRecipes = [];
+        const {data} = await axios.get(
+            name
+            ? (`https://api.spoonacular.com/recipes/complexSearch?query=${name}&addRecipeInformation=true&number=1&apiKey=${APIKEY}`)
+            : (`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=1`)
+        )
+
         
-        const {data} = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=100`);
         const recipesAPI = await data.results.map((recipe) => {
             return {
+            id: recipe.id,
             title: recipe.title,
             summary: recipe.summary,
             readyInMinutes: recipe.readyInMinutes,
@@ -23,7 +28,7 @@ const getAllRecipesAndFilter = async(req, res) => {
             }
         })
 
-        console.log(recipesAPI)
+        
 
         const recipesCreated = await Recipe.findAll({
             include: {
@@ -39,26 +44,27 @@ const getAllRecipesAndFilter = async(req, res) => {
             return {
                 id: recipe.id,
                 title: recipe.title,
-                img: recipe.img,
-                resume: recipe.resume,
-                hlevel: recipe.hlevel,
+                image: recipe.image,
+                summary: recipe.summary,
+                healthScore: recipe.healthScore,
                 steps: recipe.steps ? recipe.steps : null,
                 diets: recipe.diets.map((diet) => diet.name)
             }
         })
         // Debo verificar como esta llegando el array de la API para
         // poder concatenar, las recetas locales estan dentro de un array
-        allRecipes.push();
-        allRecipes.push(recipesAPI);
+        // const allRecipes = .concat(AllRecipesCreated)
+        const allRecipes = AllRecipesCreated.concat(recipesAPI)
         
         if (name) {
             let minName = name.toLowerCase();
-            console.log(minName)
             let coincidences = allRecipes.filter((recipe) => {
                 return recipe.title.toLowerCase().includes(minName)
             })
             if (coincidences.length > 0) res.status(200).json(coincidences)
             else res.status(404).json({message: "recipe not found"})
+        } else {
+            res.status(200).json(allRecipes)
         }
         
 

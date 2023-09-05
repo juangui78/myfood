@@ -13,23 +13,32 @@ module.exports = (sequelize) => {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
 
-    img: {
+    image: {
       type: DataTypes.STRING
     },
 
-    resume: {
+    summary: {
       type: DataTypes.TEXT
     },
 
-    hlevel: {
+    healthScore: {
       type: DataTypes.INTEGER
     },
 
     steps: {
       type: DataTypes.TEXT
     },
+
+    readyInMinutes: {
+      type: DataTypes.INTEGER
+    },
+
+    veryPopular: {
+      type: DataTypes.BOOLEAN
+    }
 
     
   }, {

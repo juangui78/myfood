@@ -6,7 +6,7 @@ const { Recipe, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const recipe = {
-  name: 'Milanea a la napolitana',
+  title: 'Milanea a la napolitana',
 };
 
 describe('Recipe routes', () => {
@@ -16,9 +16,11 @@ describe('Recipe routes', () => {
   }));
   beforeEach(() => Recipe.sync({ force: true })
     .then(() => Recipe.create(recipe)));
-  describe('GET /recipes', () => {
-    it('should get 200', () =>
+  describe('GET /recipes', function() {
+    it('should get 200', () => {
+      this.timeout(5000)
       agent.get('/recipes').expect(200)
+    }
     );
   });
 });

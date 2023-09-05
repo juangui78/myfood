@@ -1,0 +1,25 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin: 20px;  */
+    /* border-bottom: 1px gray solid; */
+    padding: 12px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.buttonOptions {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    padding-top: 4px;
+}
+
+.createIconDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,51 @@
+.containerCards {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 980px;
+    justify-content: space-evenly;
+    gap: 40px;
+    min-height: 787px;
+}
+
+.sectionCards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.paginado {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.errorScreen {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    min-height: 65vh;
+    gap: 40px;
+    background-color: rgb(228, 228, 121);
+    padding: 90px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.errorMessage {
+    font-size: 2em;
+    background-color: rgb(181, 181, 103);
+}
+.notfound {
+    width: 180px;
+    
+}
+
+.buttonPrev {
+    background: transparent;
+    border: none;
+}
