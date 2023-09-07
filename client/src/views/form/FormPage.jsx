@@ -3,14 +3,18 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import styles from './FormPage.module.css'
 import validate from './validation'
+import { useSelector } from 'react-redux'
 export default function FormCreateRecipe (props) {
+
+    const diets = useSelector(state => state.AllDiets)
+
     const [recipeData, setRecipeData] = useState({
         title: "",
         image: "",
         summary: "",
         healthScore: "",
         steps: "",
-        veryPopular: false,
+        veryPopular: null,
         diets: []
     })
 
@@ -25,17 +29,30 @@ export default function FormCreateRecipe (props) {
 
     const [selectedDiets, setSelectedDiets] = useState([])
 
+    
+
     const handleSelectChange = (event) => {
         const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+        
+        // Como recibo los values en string, hago una busqueda y comparacion
+        // para sacar con el name su id y poder enviar bien la recipe a la BD
+        const selectedIDs = selectedValues.map((dietToID) => {
+            
+            const dietCoincidence = diets.find((diet) => dietToID === diet.name)
+            return dietCoincidence.id
+        })
+
+       
         setSelectedDiets(selectedValues);
-        setRecipeData({...recipeData, diets: selectedValues})
+        setRecipeData({...recipeData, diets: selectedIDs})
     }
 
     const handleChange = (event) => {
         const {name, value} = event.target
         if (name === 'popular') {
-            if (value === 'yes') setRecipeData({...recipeData, [name]: true})
-            else {setRecipeData({...recipeData, [name]: false})}
+            if (value === 'yes') setRecipeData({...recipeData, veryPopular: true})
+            else if (value === 'no') setRecipeData({...recipeData, veryPopular: false})
+            
         } else if (name === 'healthScore'){
             setRecipeData({...recipeData, [name]: (value)})
             setErrors(
@@ -88,7 +105,7 @@ export default function FormCreateRecipe (props) {
                 steps: ""
             })
         } catch (error) {
-            alert('Error, please try again: ', error)
+            alert('Error, please try again: ', error.message)
         }
         
       }
@@ -130,8 +147,7 @@ export default function FormCreateRecipe (props) {
                     <label className={styles.warningText}>{errors.steps}</label>
                     
                     <label>It is Popular? </label>
-                    <select name='popular' value={recipeData.popular ? 'yes' : 'no'} onChange={handleChange}>
-                        <option value="">---</option>
+                    <select name='popular' value={recipeData.veryPopular ? 'yes' : 'no'} onChange={handleChange}>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
@@ -141,16 +157,11 @@ export default function FormCreateRecipe (props) {
     
                     <select name="diets" id="diets" multiple value={selectedDiets}
                     onChange={handleSelectChange} className={styles.selectStyle}>
-                        <option value="">---</option>
-                        <option value="gluten free">gluten free</option>
-                        <option value="vegetarian">vegetarian</option>
-                        <option value="lacto vegetarian">lacto vegetarian</option>
-                        <option value="ovo vegetarian">ovo vegetarian</option>
-                        <option value="vegan">vegan</option>
-                        <option value="pescetarian">pescetarian</option>
-                        <option value="low fodmap">low fodmap</option>
-                        <option value="whole 30">whole 30</option>
-                        <option value="dairy free">dairy free</option>
+
+                        {diets.map((diet) => (
+                            <option value={diet.name} key={diet.id} id={diet.id}>{diet.name}</option>
+                        ))}
+
                     </select>
                     <div>
                         <h4 className={styles.selectedDietsTitle}>Selected Diets: </h4>

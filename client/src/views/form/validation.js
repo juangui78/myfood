@@ -25,7 +25,7 @@ export default function validate (recipeData) {
         errors.summary = ""
     }
 
-    if (recipeData.healthScore.includes('-')) {
+    if (recipeData.healthScore.includes('-') || recipeData.healthScore > 10) {
         errors.healthScore = "out of range (0.0 - 10.0)"
     } else if (!/^[-+]?[0-9]*\.?[0-9]+$/.test(parseFloat(recipeData.healthScore))){
         errors.healthScore = "The score should be a float"

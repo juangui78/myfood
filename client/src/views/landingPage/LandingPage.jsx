@@ -1,7 +1,13 @@
 import styles from "./LandingPage.module.css"
 import logo from "../../assets/images/logo.png"
 import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { getDiets } from "../../redux/actions"
 export default function LandingPage () {
+    const dispatch = useDispatch()
+    const handleStart = async () => {
+        dispatch(getDiets())
+    }
     return(
         <>
             <section className={styles.page}>
@@ -16,7 +22,7 @@ export default function LandingPage () {
                         
                     </div>
                     <div>
-                        <Link to="/home" className={styles.buttonStart} type="button">Let's start</Link>
+                        <Link to="/home" className={styles.buttonStart} type="button" onClick={handleStart}>Let's start</Link>
                     </div>
                 </section>
             </section>

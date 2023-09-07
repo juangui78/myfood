@@ -9,8 +9,8 @@ const getAllRecipesAndFilter = async(req, res) => {
         
         const {data} = await axios.get(
             name
-            ? (`https://api.spoonacular.com/recipes/complexSearch?query=${name}&addRecipeInformation=true&number=1&apiKey=${APIKEY}`)
-            : (`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=1`)
+            ? (`https://api.spoonacular.com/recipes/complexSearch?query=${name}&addRecipeInformation=true&number=10&apiKey=${APIKEY}`)
+            : (`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&addRecipeInformation=true&number=10`)
         )
 
         
